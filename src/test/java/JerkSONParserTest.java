@@ -1,17 +1,15 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 class JerkSONParserTest {
-JerkSONParser testJerkSON;
+    JerkSONParser testJerkSON;
+    String jerkSONData;
 
     @BeforeEach
     void setUp() throws Exception {
         testJerkSON = new JerkSONParser((new Main()).readRawDataToString());
-    }
-
-    @Test
-    void findName() {
+        jerkSONData = testJerkSON.getJerkSON();
     }
 
     @Test
@@ -19,15 +17,30 @@ JerkSONParser testJerkSON;
     }
 
     @Test
-    void changeName() {
+    void changeText() {
     }
 
     @Test
     void getJerkSON() {
-
     }
 
     @Test
     void setJerkSON() {
+    }
+
+    @Test
+    void changeName() {
+        jerkSONData = jerkSONData.replaceAll("([n|N])\\w+", "name");
+        testJerkSON.changeName();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
+    void changePrice() {
+        jerkSONData = jerkSONData.replaceAll("([p|P][r|R])\\w+", "Price");
+        testJerkSON.changePrice();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
     }
 }

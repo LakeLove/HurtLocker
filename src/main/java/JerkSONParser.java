@@ -8,15 +8,11 @@ public class JerkSONParser {
         this.jerkSON = jerkSON;
     }
 
-    public void findName() {
-        changeName(createMatcher(""), "");
-    }
-
     public Matcher createMatcher(String pattern) {
         return Pattern.compile(pattern).matcher(getJerkSON());
     }
 
-    public void changeName(Matcher matcher, String nameReplacement) {
+    public void changeText(Matcher matcher, String nameReplacement) {
         setJerkSON(matcher.replaceAll(nameReplacement));
     }
 
@@ -26,5 +22,13 @@ public class JerkSONParser {
 
     public void setJerkSON(String jerkSON) {
         this.jerkSON = jerkSON;
+    }
+
+    public void changeName() {
+        changeText(createMatcher("([n|N])\\w+"), "name");
+    }
+
+    public void changePrice() {
+        changeText(createMatcher("([p|P][r|R])\\w+"), "Price");
     }
 }
