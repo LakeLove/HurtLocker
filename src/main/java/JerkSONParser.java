@@ -38,13 +38,14 @@ public class JerkSONParser {
     }
 
     public void changeValues() {
-        changeMilk();
+        changeApples();
         changeBread();
         changeCookies();
+        changeMilk();
     }
 
-    public void changeMilk() {
-        changeText(createMatcher("([M][i][lL])\\w+"), "Milk");
+    public void changeApples() {
+        changeText(createMatcher("([aA][pP])\\w+"), "Apples");
     }
 
     public void changeBread() {
@@ -54,6 +55,11 @@ public class JerkSONParser {
     public void changeCookies() {
         changeText(createMatcher("([cC][oO0])\\w+"), "Cookies");
     }
+
+    public void changeMilk() {
+        changeText(createMatcher("([M][i][lL])\\w+"), "Milk");
+    }
+
 
     public void getPrice() {
         //"(.\\.)\\w+";

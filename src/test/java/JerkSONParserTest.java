@@ -55,6 +55,14 @@ class JerkSONParserTest {
     }
 
     @Test
+    void changeApples() {
+        jerkSONData = jerkSONData.replaceAll("([aA][pP])\\w+", "Apples");
+        testJerkSON.changeApples();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
     void changeBread() {
         jerkSONData = jerkSONData.replaceAll("([B][r][eE][aA])\\w+", "Bread");
         testJerkSON.changeBread();
@@ -80,9 +88,11 @@ class JerkSONParserTest {
 
     @Test
     void changeValues() {
+        jerkSONData = jerkSONData.replaceAll("([aA][pP])\\w+", "Apples");
         jerkSONData = jerkSONData.replaceAll("([B][r][eE][aA])\\w+", "Bread");
         jerkSONData = jerkSONData.replaceAll("([cC][oO0])\\w+", "Cookies");
         jerkSONData = jerkSONData.replaceAll("([M][i][lL])\\w+", "Milk");
+        testJerkSON.changeApples();
         testJerkSON.changeBread();
         testJerkSON.changeCookies();
         testJerkSON.changeMilk();
