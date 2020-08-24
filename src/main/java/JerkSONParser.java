@@ -24,11 +24,38 @@ public class JerkSONParser {
         this.jerkSON = jerkSON;
     }
 
+    public void changeKeys() {
+        changeName();
+        changePrice();
+    }
+
     public void changeName() {
-        changeText(createMatcher("([n|N])\\w+"), "name");
+        changeText(createMatcher("([nN][aA][M])\\w+"), "name");
     }
 
     public void changePrice() {
-        changeText(createMatcher("([p|P][r|R])\\w+"), "Price");
+        changeText(createMatcher("([pP][rR][iI][cC])\\w+"), "Price");
+    }
+
+    public void changeValues() {
+        changeMilk();
+        changeBread();
+        changeCookies();
+    }
+
+    public void changeMilk() {
+        changeText(createMatcher("([M][i][lL])\\w+"), "Milk");
+    }
+
+    public void changeBread() {
+        changeText(createMatcher("([B][r][eE][aA])\\w+"), "Bread");
+    }
+
+    public void changeCookies() {
+        changeText(createMatcher("([cC][oO0])\\w+"), "Cookies");
+    }
+
+    public void getPrice() {
+        //"(.\\.)\\w+";
     }
 }

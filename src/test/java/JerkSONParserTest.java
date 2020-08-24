@@ -30,7 +30,7 @@ class JerkSONParserTest {
 
     @Test
     void changeName() {
-        jerkSONData = jerkSONData.replaceAll("([n|N])\\w+", "name");
+        jerkSONData = jerkSONData.replaceAll("([nN][aA][M])\\w+", "name");
         testJerkSON.changeName();
         assertEquals(jerkSONData, testJerkSON.getJerkSON());
         System.out.println(testJerkSON.getJerkSON());
@@ -38,8 +38,54 @@ class JerkSONParserTest {
 
     @Test
     void changePrice() {
-        jerkSONData = jerkSONData.replaceAll("([p|P][r|R])\\w+", "Price");
+        jerkSONData = jerkSONData.replaceAll("([pP][rR][iI][cC])\\w+", "Price");
         testJerkSON.changePrice();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
+    void changeKeys() {
+        jerkSONData = jerkSONData.replaceAll("([nN][aA][M])\\w+", "name");
+        jerkSONData = jerkSONData.replaceAll("([pP][rR][iI][cC])\\w+", "Price");
+        testJerkSON.changeName();
+        testJerkSON.changePrice();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
+    void changeBread() {
+        jerkSONData = jerkSONData.replaceAll("([B][r][eE][aA])\\w+", "Bread");
+        testJerkSON.changeBread();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
+    void changeCookies() {
+        jerkSONData = jerkSONData.replaceAll("([cC][oO0])\\w+", "Cookies");
+        testJerkSON.changeCookies();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
+    void changeMilk() {
+        jerkSONData = jerkSONData.replaceAll("([M][i][lL])\\w+", "Milk");
+        testJerkSON.changeMilk();
+        assertEquals(jerkSONData, testJerkSON.getJerkSON());
+        System.out.println(testJerkSON.getJerkSON());
+    }
+
+    @Test
+    void changeValues() {
+        jerkSONData = jerkSONData.replaceAll("([B][r][eE][aA])\\w+", "Bread");
+        jerkSONData = jerkSONData.replaceAll("([cC][oO0])\\w+", "Cookies");
+        jerkSONData = jerkSONData.replaceAll("([M][i][lL])\\w+", "Milk");
+        testJerkSON.changeBread();
+        testJerkSON.changeCookies();
+        testJerkSON.changeMilk();
         assertEquals(jerkSONData, testJerkSON.getJerkSON());
         System.out.println(testJerkSON.getJerkSON());
     }
