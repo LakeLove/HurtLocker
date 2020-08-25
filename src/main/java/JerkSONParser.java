@@ -1,67 +1,69 @@
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class JerkSONParser {
-    private String jerkSON;
+public class JerkSONParser<T> {
+    private final String jerkSON;
+    private final List<T> parsedObjects;
+    private final Class<T> aClass;
+    private Integer errors;
 
-    public JerkSONParser(String jerkSON) {
+    public JerkSONParser(String jerkSON, Class<T> aClass) {
         this.jerkSON = jerkSON;
+        this.parsedObjects = new ArrayList<>();
+        this.aClass = aClass;
+        this.errors = 0;
     }
 
-    public Matcher createMatcher(String pattern) {
-        return Pattern.compile(pattern).matcher(getJerkSON());
+    public void parseJerkSON() throws IllegalAccessException, InstantiationException {
+        Matcher object = createMatcher("([^#])+", getJerkSON());
+        while (object.find()) {
+            if (createObject(object.group()) != null) {
+                parsedObjects.add(createObject(object.group()));
+            }
+        }
     }
 
-    public void changeText(Matcher matcher, String nameReplacement) {
-        setJerkSON(matcher.replaceAll(nameReplacement));
+    public T createObject(String singleEntry) throws InstantiationException, IllegalAccessException {
+        Matcher value = createMatcher(("(?<=:)([^;])([^;@!^*%:\\n])+"), singleEntry);
+        List<String> entryValues = new ArrayList<>();
+        while (value.find()) {
+            entryValues.add(value.group());
+        }
+        return parseObject(entryValues);
+    }
+
+    public T parseObject(List<String> entryValues) throws IllegalAccessException, InstantiationException {
+        T newObj = this.aClass.newInstance();
+        Field[] fields = this.aClass.getDeclaredFields();
+        int index = 0;
+        if (entryValues.size() == fields.length) {
+            for (Field field : fields) {
+                field.setAccessible(true);
+                field.set(newObj, entryValues.get(index));
+                index++;
+            }
+        } else {
+            errors += 1;
+            return null;
+        }
+        return newObj;
+    }
+
+    public Matcher createMatcher(String pattern, String string) {
+        return Pattern.compile(pattern).matcher(string);
     }
 
     public String getJerkSON() {
         return jerkSON;
     }
 
-    public void setJerkSON(String jerkSON) {
-        this.jerkSON = jerkSON;
+    public List<T> getParsedObjects() {
+        return parsedObjects;
     }
 
-    public void changeKeys() {
-        changeName();
-        changePrice();
-    }
-
-    public void changeName() {
-        changeText(createMatcher("([nN][aA][M])\\w+"), "name");
-    }
-
-    public void changePrice() {
-        changeText(createMatcher("([pP][rR][iI][cC])\\w+"), "Price");
-    }
-
-    public void changeValues() {
-        changeApples();
-        changeBread();
-        changeCookies();
-        changeMilk();
-    }
-
-    public void changeApples() {
-        changeText(createMatcher("([aA][pP])\\w+"), "Apples");
-    }
-
-    public void changeBread() {
-        changeText(createMatcher("([B][r][eE][aA])\\w+"), "Bread");
-    }
-
-    public void changeCookies() {
-        changeText(createMatcher("([cC][oO0])\\w+"), "Cookies");
-    }
-
-    public void changeMilk() {
-        changeText(createMatcher("([M][i][lL])\\w+"), "Milk");
-    }
-
-
-    public void getPrice() {
-        //"(.\\.)\\w+";
+    public Integer getErrors() {
+        return errors;
     }
 }
