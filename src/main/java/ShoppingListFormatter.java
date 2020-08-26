@@ -50,19 +50,15 @@ public class ShoppingListFormatter {
     }
 
     public String parseItem(GroceryItem item) {//parses the name of the GroceryItem
-        if (createMatcher("([aA][pP])\\w+", item.getName()).find()) {
+        if (MatcherBuilder.createMatcher("([aA][pP])\\w+", item.getName()).find()) {
             return "Apples";
-        } else if (createMatcher("([B][r][eE][aA])\\w+", item.getName()).find()) {
+        } else if (MatcherBuilder.createMatcher("([B][r][eE][aA])\\w+", item.getName()).find()) {
             return "Bread";
-        } else if (createMatcher("([cC][oO0])\\w+", item.getName()).find()) {
+        } else if (MatcherBuilder.createMatcher("([cC][oO0])\\w+", item.getName()).find()) {
             return "Cookies";
-        } else if (createMatcher("([M][i][lL])\\w+", item.getName()).find())
+        } else if (MatcherBuilder.createMatcher("([M][i][lL])\\w+", item.getName()).find())
             return "Milk";
         return null;
-    }
-
-    public Matcher createMatcher(String pattern, String string) {
-        return Pattern.compile(pattern).matcher(string);
     }
 
     public String formatList() {

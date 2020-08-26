@@ -17,7 +17,7 @@ public class JerkSONParser<T> {
 
     public List<T> parseJerkSON() throws IllegalAccessException, InstantiationException {
         List<T> parsedObjects = new ArrayList<>();
-        Matcher object = createMatcher("([^#])+", getJerkSON());
+        Matcher object = MatcherBuilder.createMatcher("([^#])+", getJerkSON());
         while (object.find()) {//gets each individual object string in JerkSON
             if (createObject(object.group()) != null) {//null come from incomplete objects
                 parsedObjects.add(createObject(object.group()));//turns object string into object and adds to list
@@ -27,7 +27,7 @@ public class JerkSONParser<T> {
     }
 
     public T createObject(String singleEntry) throws InstantiationException, IllegalAccessException {
-        Matcher value = createMatcher(("(?<=:)([^;])([^;@!^*%:\\n])+"), singleEntry);
+        Matcher value = MatcherBuilder.createMatcher(("(?<=:)([^;])([^;@!^*%:\\n])+"), singleEntry);
         List<String> entryValues = new ArrayList<>();
         while (value.find()) {
             entryValues.add(value.group());//adds each value found by regex to entryValues
@@ -50,10 +50,6 @@ public class JerkSONParser<T> {
             return null;
         }
         return newObj;//return object with all fields set
-    }
-
-    public Matcher createMatcher(String pattern, String string) {
-        return Pattern.compile(pattern).matcher(string);
     }
 
     public String getJerkSON() {
