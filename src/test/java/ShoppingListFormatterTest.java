@@ -34,18 +34,18 @@ class ShoppingListFormatterTest {
         assertEquals(4, testFormatter.getGroceryCount().size());
     }
 
-    @Test
-    void parseItem() {
-        String expected = "Cookies";
-        String actual = testFormatter.parseItem(testGroceryItem);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void parseItem_Null() {
-        testGroceryItem.setName("Juice");
-        assertNull(testFormatter.parseItem(testGroceryItem));
-    }
+//    @Test
+//    void parseItem() {
+//        String expected = "Cookies";
+//        String actual = testFormatter.parseItem(testGroceryItem);
+//        assertEquals(expected, actual);
+//    }
+//
+//    @Test
+//    void parseItem_Null() {
+//        testGroceryItem.setName("Juice");
+//        assertNull(testFormatter.parseItem(testGroceryItem));
+//    }
 
     @Test
     void formatList() {

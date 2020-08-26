@@ -34,7 +34,7 @@ public class ShoppingListFormatter {
 
     public void createShoppingList() {
         groceryItems.forEach(item -> {//iterates through each GroceryItem in ArrayList
-            String foodItem = parseItem(item);//gets name of GroceryItem
+            String foodItem = getItemName(item);//gets name of GroceryItem
             double price = Double.parseDouble(item.getPrice());//gets double value of GroceryItem price
             addToShoppingList(foodItem, price);//add GroceryItem name and its price to shoppingList
             groceryCount.merge(foodItem, 1, Integer::sum);//increase count of GroceryItem occurrence
@@ -49,16 +49,16 @@ public class ShoppingListFormatter {
         } //occurrences
     }
 
-    public String parseItem(GroceryItem item) {//parses the name of the GroceryItem
-        if (MatcherBuilder.createMatcher("([aA][pP])\\w+", item.getName()).find()) {
-            return "Apples";
-        } else if (MatcherBuilder.createMatcher("([B][r][eE][aA])\\w+", item.getName()).find()) {
-            return "Bread";
-        } else if (MatcherBuilder.createMatcher("([cC][oO0])\\w+", item.getName()).find()) {
-            return "Cookies";
-        } else if (MatcherBuilder.createMatcher("([M][i][lL])\\w+", item.getName()).find())
-            return "Milk";
+    public String getItemName(GroceryItem item) {//parses the name of the GroceryItem
+        for (String foodItem : shoppingList.keySet()) {
+            if (!parseItemName(foodItem, item).equals("")) return foodItem;
+        }
         return null;
+    }
+
+    public String parseItemName(String foodItem, GroceryItem item) {//parses the name of the GroceryItem
+        return MatcherBuilder.createMatcher(MatcherBuilder.createPattern(foodItem), item.getName()).find() ?
+                   foodItem : "";
     }
 
     public String formatList() {

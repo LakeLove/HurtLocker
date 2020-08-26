@@ -10,6 +10,7 @@ public class MatcherBuilder {
         String[] splitString = string.split("");
         StringBuilder pattern = new StringBuilder("(");
         Arrays.stream(splitString).forEach(character -> {pattern.append(buildCharacterSet(character));});
+        pattern.append(")");
         return pattern.toString();
     }
 
