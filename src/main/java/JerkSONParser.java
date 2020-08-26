@@ -39,7 +39,7 @@ public class JerkSONParser<T> {
         Field[] fields = this.aClass.getDeclaredFields();
         int index = 0;
         if (entryValues.size() == fields.length) {
-            for (Field field : fields) {
+            for (Field field : fields) { //this is assuming that the fields are in order
                 field.setAccessible(true);
                 field.set(newObj, entryValues.get(index));
                 index++;
@@ -66,4 +66,6 @@ public class JerkSONParser<T> {
     public Integer getErrors() {
         return errors;
     }
+
+
 }

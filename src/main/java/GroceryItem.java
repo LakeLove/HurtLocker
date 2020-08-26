@@ -41,7 +41,6 @@ public class GroceryItem {
     }
 
 
-
     @Override
     public String toString() {
         return String.format("[%s, %s, %s, %s]", name, Price, type, expiration);
