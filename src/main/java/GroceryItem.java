@@ -1,3 +1,4 @@
+import java.util.Objects;
 public class GroceryItem {
     private String name;
     private String Price;
@@ -48,5 +49,14 @@ public class GroceryItem {
     @Override
     public String toString() {
         return String.format("[%s, %s, %s, %s]", name, Price, type, expiration);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) { return true; }
+        if(!(o instanceof GroceryItem)) { return false; }
+        GroceryItem that = (GroceryItem) o;
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getPrice(), that.getPrice()) && Objects
+               .equals(getType(), that.getType()) && Objects.equals(getExpiration(), that.getExpiration());
     }
 }

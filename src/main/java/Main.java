@@ -11,9 +11,8 @@ public class Main {
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
         JerkSONParser<GroceryItem> jerkSONParser = new JerkSONParser<>(output, GroceryItem.class);
-        jerkSONParser.parseJerkSON();
         ShoppingListFormatter shoppingList =
-            new ShoppingListFormatter(jerkSONParser.getParsedObjects(), jerkSONParser.getErrors());
+            new ShoppingListFormatter(jerkSONParser.parseJerkSON(), jerkSONParser.getErrors());
         shoppingList.createShoppingList();
         System.out.println(shoppingList.formatList());
     }

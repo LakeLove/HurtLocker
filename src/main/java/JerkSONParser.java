@@ -6,50 +6,50 @@ import java.util.regex.Pattern;
 
 public class JerkSONParser<T> {
     private final String jerkSON;
-    private final List<T> parsedObjects;
     private final Class<T> aClass;
     private Integer errors;
 
     public JerkSONParser(String jerkSON, Class<T> aClass) {
         this.jerkSON = jerkSON;
-        this.parsedObjects = new ArrayList<>();
         this.aClass = aClass;
         this.errors = 0;
     }
 
-    public void parseJerkSON() throws IllegalAccessException, InstantiationException {
+    public List<T> parseJerkSON() throws IllegalAccessException, InstantiationException {
+        List<T> parsedObjects = new ArrayList<>();
         Matcher object = createMatcher("([^#])+", getJerkSON());
-        while (object.find()) {
-            if (createObject(object.group()) != null) {
-                parsedObjects.add(createObject(object.group()));
+        while (object.find()) {//gets each individual object string in JerkSON
+            if (createObject(object.group()) != null) {//null come from incomplete objects
+                parsedObjects.add(createObject(object.group()));//turns object string into object and adds to list
             }
         }
+        return parsedObjects;
     }
 
     public T createObject(String singleEntry) throws InstantiationException, IllegalAccessException {
         Matcher value = createMatcher(("(?<=:)([^;])([^;@!^*%:\\n])+"), singleEntry);
         List<String> entryValues = new ArrayList<>();
         while (value.find()) {
-            entryValues.add(value.group());
+            entryValues.add(value.group());//adds each value found by regex to entryValues
         }
-        return parseObject(entryValues);
+        return parseObject(entryValues);//creates and returns new object, fields are set by entryValues found
     }
 
     public T parseObject(List<String> entryValues) throws IllegalAccessException, InstantiationException {
-        T newObj = this.aClass.newInstance();
-        Field[] fields = this.aClass.getDeclaredFields();
-        int index = 0;
-        if (entryValues.size() == fields.length) {
+        T newObj = this.aClass.newInstance();//creates a new class instance
+        Field[] fields = this.aClass.getDeclaredFields();//gets all fields for that class
+        int index = 0;//sets index for entryValues
+        if (entryValues.size() == fields.length) {//checks if entryValues holds all values
             for (Field field : fields) { //this is assuming that the fields are in order
-                field.setAccessible(true);
+                field.setAccessible(true);//allows private fields to be set
                 field.set(newObj, entryValues.get(index)); //will only set String values
                 index++;
             }
         } else {
-            errors += 1;
+            errors += 1;//if entryValues don't have all necessary values, increments errors count
             return null;
         }
-        return newObj;
+        return newObj;//return object with all fields set
     }
 
     public Matcher createMatcher(String pattern, String string) {
@@ -58,10 +58,6 @@ public class JerkSONParser<T> {
 
     public String getJerkSON() {
         return jerkSON;
-    }
-
-    public List<T> getParsedObjects() {
-        return parsedObjects;
     }
 
     public Integer getErrors() {

@@ -4,15 +4,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 class ShoppingListFormatterTest {
     JerkSONParser<GroceryItem> testJerkSON;
-    String jerkSONData;
     ShoppingListFormatter testFormatter;
     GroceryItem testGroceryItem;
 
     @BeforeEach
     void setUp() throws Exception {
         testJerkSON = new JerkSONParser<>((new Main()).readRawDataToString(), GroceryItem.class);
-        testJerkSON.parseJerkSON();
-        testFormatter = new ShoppingListFormatter(testJerkSON.getParsedObjects(), testJerkSON.getErrors());
+        testFormatter = new ShoppingListFormatter(testJerkSON.parseJerkSON(), testJerkSON.getErrors());
         testGroceryItem = new GroceryItem("Co0kieS", "2.25", "Food", "1/25/2016");
     }
 
@@ -35,7 +33,7 @@ class ShoppingListFormatterTest {
 
     @Test
     void parseItem_Null() {
-        testGroceryItem = new GroceryItem("Juice", "2.25", "Food", "1/25/2016");
+        testGroceryItem.setName("Juice");
         assertNull(testFormatter.parseItem(testGroceryItem));
     }
 
