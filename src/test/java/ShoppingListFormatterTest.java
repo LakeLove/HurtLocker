@@ -15,6 +15,16 @@ class ShoppingListFormatterTest {
     }
 
     @Test
+    void ShoppingListFormatter_ShoppingList() {
+        assertNotNull(testFormatter.getShoppingList());
+    }
+
+    @Test
+    void ShoppingListFormatter_GroceryCount() {
+        assertNotNull(testFormatter.getGroceryCount());
+    }
+
+    @Test
     void populateShoppingList() {
         assertEquals(4, testFormatter.getShoppingList().size());
     }
@@ -40,13 +50,7 @@ class ShoppingListFormatterTest {
     @Test
     void formatList() {
         testFormatter.createShoppingList();
-        String expected = "name:    Milk \t\t seen: 6 times\n============= \t \t =============\n" +
-                              "Price:   3.23 \t\t seen: 5 times\n-------------\t\t -------------\nPrice:   1.23 \t\t seen: 1 time\n\n" +
-                              "name:   Bread \t\t seen: 6 times\n============= \t \t =============\nPrice:   1.23 \t\t seen: 6 times\n" +
-                              "-------------\t\t -------------\n\nname: Cookies \t\t seen: 8 times\n============= \t \t =============\n" +
-                              "Price:   2.25 \t\t seen: 8 times\n-------------\t\t -------------\n\nname:  Apples \t\t seen: 4 times\n" +
-                              "============= \t \t =============\nPrice:   0.25 \t\t seen: 2 times\n-------------\t\t -------------\n" +
-                              "Price:   0.23 \t\t seen: 2 times\n\nErrors         \t \t seen: 4 times";
+        String expected = "name:    Milk \t\t seen: 6 times\n============= \t \t =============\n" + "Price:   3.23 \t\t seen: 5 times\n-------------\t\t -------------\nPrice:   1.23 \t\t seen: 1 time\n\n" + "name:   Bread \t\t seen: 6 times\n============= \t \t =============\nPrice:   1.23 \t\t seen: 6 times\n" + "-------------\t\t -------------\n\nname: Cookies \t\t seen: 8 times\n============= \t \t =============\n" + "Price:   2.25 \t\t seen: 8 times\n-------------\t\t -------------\n\nname:  Apples \t\t seen: 4 times\n" + "============= \t \t =============\nPrice:   0.25 \t\t seen: 2 times\n-------------\t\t -------------\n" + "Price:   0.23 \t\t seen: 2 times\n\nErrors         \t \t seen: 4 times";
         String actual = testFormatter.formatList();
         assertEquals(expected, actual);
     }
@@ -54,8 +58,7 @@ class ShoppingListFormatterTest {
     @Test
     void formatGroceries() {
         testFormatter.createShoppingList();
-        String expected = "name: Cookies \t\t seen: 8 times\n============= \t \t =============\n" +
-        "Price:   2.25 \t\t seen: 8 times\n-------------\t\t -------------\n\n";
+        String expected = "name: Cookies \t\t seen: 8 times\n============= \t \t =============\n" + "Price:   2.25 \t\t seen: 8 times\n-------------\t\t -------------\n\n";
         String actual = testFormatter.formatGroceries("Cookies");
         assertEquals(expected, actual);
     }
@@ -71,8 +74,7 @@ class ShoppingListFormatterTest {
     @Test
     void formatPrices_TwoPrices() {
         testFormatter.createShoppingList();
-        String expected = "Price:   0.25 \t\t seen: 2 times\n-------------\t\t -------------\n" +
-        "Price:   0.23 \t\t seen: 2 times";
+        String expected = "Price:   0.25 \t\t seen: 2 times\n-------------\t\t -------------\n" + "Price:   0.23 \t\t seen: 2 times";
         String actual = testFormatter.formatPrices("Apples");
         assertEquals(expected, actual);
     }

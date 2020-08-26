@@ -10,24 +10,26 @@ public class ShoppingListFormatter {
     public ShoppingListFormatter(List<GroceryItem> groceryItems, Integer errors) {
         this.groceryItems = groceryItems;
         this.errors = errors;
-        this.shoppingList = new LinkedHashMap<>();
-        populateShoppingList();
-        this.groceryCount = new HashMap<>();
-        populateGroceryCount();
+        this.shoppingList = populateShoppingList();
+        this.groceryCount = populateGroceryCount();
     }
 
-    public void populateShoppingList() {
+    public Map<String, Map<Double, Integer>> populateShoppingList() {
+        Map<String, Map<Double, Integer>> shoppingList = new LinkedHashMap<>();
         shoppingList.put("Milk", new LinkedHashMap<>());
         shoppingList.put("Bread", new LinkedHashMap<>());
         shoppingList.put("Cookies", new LinkedHashMap<>());
         shoppingList.put("Apples", new LinkedHashMap<>());
+        return shoppingList;
     }
 
-    public void populateGroceryCount() {
+    public Map<String, Integer> populateGroceryCount() {
+        Map<String, Integer> groceryCount = new HashMap<>();
         groceryCount.put("Milk", 0);
         groceryCount.put("Bread", 0);
         groceryCount.put("Cookies", 0);
         groceryCount.put("Apples", 0);
+        return groceryCount;
     }
 
     public void createShoppingList() {
