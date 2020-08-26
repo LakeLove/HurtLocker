@@ -6,6 +6,13 @@ public class GroceryItem {
 
     public GroceryItem() {}
 
+    public GroceryItem(String name, String price, String type, String expiration) {
+        this.name = name;
+        this.Price = price;
+        this.type = type;
+        this.expiration = expiration;
+    }
+
     public String getName() {
         return name;
     }
