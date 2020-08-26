@@ -41,7 +41,7 @@ public class JerkSONParser<T> {
         if (entryValues.size() == fields.length) {
             for (Field field : fields) { //this is assuming that the fields are in order
                 field.setAccessible(true);
-                field.set(newObj, entryValues.get(index));
+                field.set(newObj, entryValues.get(index)); //will only set String values
                 index++;
             }
         } else {
@@ -66,6 +66,4 @@ public class JerkSONParser<T> {
     public Integer getErrors() {
         return errors;
     }
-
-
 }

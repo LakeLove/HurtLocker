@@ -13,4 +13,31 @@ class JerkSONParserTest {
         jerkSONData = testJerkSON.getJerkSON();
     }
 
+    @Test
+    void parseJerkSON() {
+    }
+
+    @Test
+    void createObject() {
+    }
+
+    @Test
+    void parseObject() {
+    }
+
+    @Test
+    void createMatcher() {
+    }
+
+    @Test
+    void getJerkSON() {
+    }
+
+    @Test
+    void getParsedObjects() {
+    }
+
+    @Test
+    void getErrors() {
+    }
 }

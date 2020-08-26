@@ -10,17 +10,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        //System.out.println(output);
         JerkSONParser<GroceryItem> jerkSONParser = new JerkSONParser<>(output, GroceryItem.class);
         jerkSONParser.parseJerkSON();
-//        System.out.println(jerkSONParser.getShoppingList());
-//        for (Object obj : jerkSONParser.getParsedObjects()){
-//            System.out.println(obj);
-//        }
-        //System.out.println(jerkSONParser.getParsedObjects());
-//        System.out.println(jerkSONParser.getErrors());
-        ShoppingListFormatter shoppingList = new ShoppingListFormatter(jerkSONParser.getParsedObjects(),
-            jerkSONParser.getErrors());
+        ShoppingListFormatter shoppingList =
+            new ShoppingListFormatter(jerkSONParser.getParsedObjects(), jerkSONParser.getErrors());
         shoppingList.createShoppingList();
         System.out.println(shoppingList.formatList());
     }

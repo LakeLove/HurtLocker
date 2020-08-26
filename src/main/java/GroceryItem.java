@@ -4,9 +4,7 @@ public class GroceryItem {
     private String type;
     private String expiration;
 
-    public GroceryItem() {
-
-    }
+    public GroceryItem() {}
 
     public String getName() {
         return name;
@@ -39,7 +37,6 @@ public class GroceryItem {
     public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
-
 
     @Override
     public String toString() {
