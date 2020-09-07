@@ -15,6 +15,5 @@ public class Main {
             new ShoppingListFormatter(jerkSONParser.parseJerkSON(), jerkSONParser.getErrors());
         shoppingList.createShoppingList();
         System.out.println(shoppingList.formatList());
-        //System.out.println(MatcherBuilder.createPattern("Apples"));
     }
 }

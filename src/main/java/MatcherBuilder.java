@@ -9,16 +9,16 @@ public class MatcherBuilder {
     public static String createPattern(String string) {
         String[] splitString = string.split("");
         StringBuilder pattern = new StringBuilder("(");
-        Arrays.stream(splitString).forEach(character -> {pattern.append(buildCharacterSet(character));});
+        Arrays.stream(splitString).forEach(character -> pattern.append(buildCharacterSet(character)));
         pattern.append(")");
         return pattern.toString();
     }
 
     public static String buildCharacterSet(String character) {
-        return "[" + character.toLowerCase() + character.toUpperCase() + addL33T(character) + "]";
+        return "[" + character.toLowerCase() + character.toUpperCase() + addL33TCharacters(character) + "]";
     }
 
-    public static String addL33T(String character) {
+    public static String addL33TCharacters(String character) {
         switch(character.toLowerCase()) {
             case "a":
                 return "4";

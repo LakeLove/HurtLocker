@@ -52,6 +52,10 @@ public class JerkSONParser<T> {
         return newObj;//return object with all fields set
     }
 
+    public void parseField(Field field) {
+
+    }
+
     public String getJerkSON() {
         return jerkSON;
     }
