@@ -19,7 +19,7 @@ public class JerkSONParser<T> {
         List<T> parsedObjects = new ArrayList<>();
         Matcher object = MatcherBuilder.createMatcher("([^#])+", getJerkSON());
         while (object.find()) {//gets each individual object string in JerkSON
-            if (createObject(object.group()) != null) {//null come from incomplete objects
+            if (createObject(object.group()) != null) {//null comes from incomplete objects
                 parsedObjects.add(createObject(object.group()));//turns object string into object and adds to list
             }
         }
